@@ -1,14 +1,11 @@
 
-
-import express from 'express'
-
+import express from "express";
+import {getalljobs, getjobbyid, postjob,updatejob} from '../controller/jobscontroller.js'
 const router=express.Router();
-import {deleteuser, forgotpassword, getallusers, login, register, updateuser} from '../controller/usercontroller.js';
 
-router.post('/register',register);
-router.post('/login',login);
-router.get('/getusers',getallusers);
-router.put('/updateuser/:id',updateuser)
-router.patch('/forgotpassword/:id',forgotpassword);
-router.delete('/deleteuser/:id',deleteuser)
+//routes
+router.post('/jobs/:adminid',postjob);
+router.get('/jobs',getalljobs);
+router.get('/jobs/:id',getjobbyid)
+router.put('/jobs/:id/:adminid',updatejob);
 export default router
