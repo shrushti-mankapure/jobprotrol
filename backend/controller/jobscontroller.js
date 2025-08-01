@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import jobmodel from "../models/jobsmodel";
 import usermodel from "../models/usermodel.js";
 
