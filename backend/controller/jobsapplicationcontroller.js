@@ -1,6 +1,7 @@
-import jobsapplicationmodel from "../models/jobsapplication.js";
-import jobmodel from "../models/jobsmodel.js";
-import usermodel from "../models/usermodel.js";
+import jobsapplicationmodel from "../models/jobsapplication.js"
+import jobmodel from "../models/jobsmodel.js"
+import usermodel from "../models/usermodel.js"
+
 
 
 export const applyjob=async(req,res)=>{
@@ -48,5 +49,29 @@ export const getapplicationsoflogineduser=async(req,res)=>{
         return res.status(200).json({message:"applications fetched successfully",applications:applications})
     } catch (error) {
         return res.status(500).json({error:'internal server error'+error.message});
+    }
+}
+export const updateapplication=async(req,res)=>{
+    try{
+        const id=req.params.id;
+        if(!id){
+            return res.status(400).json({error:"id is required"});
+        }
+        let updateapplication=await jobsapplicationmodel.findByIdAndUpdate(id,req.body);
+            return res.status(200).json({message:"application updated successfully"})
+    }catch(error){
+    return res.status(500).json({error:'internal server error'+error.message})
+    }
+}
+export const deleteapplication=async(req,res)=>{
+    try{
+        const id=req.params.id;
+        if(!id){
+            return res.status(400).json({error:"id is required"});
+        }
+        let deleteapplication=await jobsapplicationmodel.findByIdAnddelete(id,req.body);
+            return res.status(200).json({message:"application deleted successfully"})
+    }catch(error){
+    return res.status(500).json({error:'internal server error'+error.message})
     }
 }

@@ -1,12 +1,13 @@
-
 import express from 'express'
 
-const router=express.Router();
-import {applyjob, getapplicationsoflogineduser} from '../controller/jobapplicationcontroller.js';
+const applicationjob = express.Router();
+import {applyjob, deleteapplication, getapplicationsoflogineduser, updateapplication} from '../controller/jobsapplicationcontroller.js'
 
 
-router.post('/apply/:jobid/:userid',applyjob);
-router.get('/apply/:userid',getapplicationsoflogineduser);
 
+applicationjob.post('/apply/:jobid/:userid',applyjob);
+applicationjob.get('/apply/:userid',getapplicationsoflogineduser);
+applicationjob.put('/updateapplication/:id',updateapplication);
+applicationjob.delete('/deleteapplication/:id',deleteapplication);
 
-export default router
+export default applicationjob

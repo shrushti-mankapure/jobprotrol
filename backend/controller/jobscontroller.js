@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import jobmodel from "../models/jobsmodel";
+import jobmodel from "../models/jobsmodel.js"
 import usermodel from "../models/usermodel.js";
 
 export const postjob=async(req,res)=>{
