@@ -1,6 +1,6 @@
 import usermodel from '../models/usermodel.js';
 import bcrypt, { hash } from 'bcryptjs'
-
+import nodemailer from 'nodemailer';
 export const register=async(req,res)=>{
     try {
         const {username,email,password}=req.body;
@@ -14,6 +14,29 @@ export const register=async(req,res)=>{
             return res.status(400).json({error:'user already exist'});
         }
         req.body.password=await bcrypt.hash(password,10);
+        try {
+                    let transporter=nodemailer.createTransport({
+                        service:'gmail',
+                        auth:{
+                            user:'shrushtimanakapure@gmail.com',
+                            pass:'xsjm cxan aler nfdi'    
+                        }
+                    })
+        
+                    let mailinfo={
+                        from:'shrushtimanakapure@gmail.com',
+                        to:'bmadagudi7@gmail.com',
+                        subject:`register ${req.body.username}`,
+                        html:`
+                        <h1 style="color:red">hi man, you successfully registed Aishu job portal appiction and your username is ${req.body.username},your mail is ${req.body.email}</h1>
+                        
+                        `
+                    }
+        
+                    await transporter.sendMail(mailinfo);
+                } catch (error) {
+                    return res.status(500).json({error:'internal server error failed to sent mail'+error.message});
+                }
         let newuser=new usermodel(req.body);
         await newuser.save();
         return res.status(200).json({message:"user registered successfully",user:newuser});
